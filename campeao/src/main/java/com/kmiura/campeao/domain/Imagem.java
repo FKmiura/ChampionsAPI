@@ -47,5 +47,19 @@ public class Imagem {
     public void setImagem(byte[] imagem) {
         this.imagem = imagem;
     }
+    public ImagemEnum getTipo() {
+        return tipo;
+    }
+    public void setTipo(ImagemEnum tipo) {
+        this.tipo = tipo;
+    }
+    public String getDataAdicao() {
+        return dataAdicao;
+    }
+    public void setDataAdicao(String dataAdicao) {
+        this.dataAdicao = dataAdicao;
+    }
+
+    
     
 }

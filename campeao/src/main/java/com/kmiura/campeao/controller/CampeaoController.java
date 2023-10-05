@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kmiura.campeao.dao.CampeaoDao;
 import com.kmiura.campeao.domain.Campeao;
+import com.kmiura.campeao.domain.Imagem;
+import com.kmiura.campeao.enuns.ImagemEnum;
 import com.kmiura.campeao.exception.InternalServerErrorException;
 import com.kmiura.campeao.exception.ResourceNotFoundException;
 
@@ -55,40 +57,91 @@ public class CampeaoController {
     }
 
     @GetMapping("/{id}/images")
-    public void buscarIdImagens() {
+    public List<Imagem> buscarImagensCampeao(@PathVariable Long id) {
+        List<Imagem> imagens = new ArrayList<>();
+        Campeao campeao = new Campeao();
         try {
-
+            campeao = campeaoDao.buscarId(id);
+            if(campeao == null){
+                throw new ResourceNotFoundException("No Campeao found.");
+            }
+            imagens = campeao.getImagem();
+            if(imagens.isEmpty()){
+                throw new ResourceNotFoundException("No Images found.");
+            }
         } catch (RuntimeException e) {
             e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
         }
+        return imagens;
     }
 
     @GetMapping("/{id}/images/{tipo}")
-    public void buscarIdImagemTipo() {
+    public List<Imagem> buscarIdImagemTipo(@PathVariable Long id, ImagemEnum tipo) {
+        List<Imagem> imagemsCampeao = new ArrayList<>();
+        List<Imagem> imagemsTipo = new ArrayList<>();
+        Campeao campeao = new Campeao();
         try {
-
+            campeao = campeaoDao.buscarId(id);
+            if(campeao == null){
+                throw new ResourceNotFoundException("No Campeao found.");
+            }
+            imagemsCampeao = campeao.getImagem();
+            if(imagemsCampeao.isEmpty()){
+                throw new ResourceNotFoundException("No Images found.");
+            }
+            for(Imagem imagem : imagemsCampeao){
+                if(imagem.getTipo() == tipo){
+                    imagemsTipo.add(imagem);
+                }
+            }
+            if(imagemsTipo.isEmpty()){
+                throw new ResourceNotFoundException("No Type Images found.");
+            }
         } catch (RuntimeException e) {
             e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
         }
+        return imagemsTipo;
     }
 
     // Metodos POST
 
     @PostMapping
-    public void salvar() {
-
+    public Campeao salvar(Campeao campeao) {
+        try{
+            campeaoDao.salvar(campeao);
+            return campeao;
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
+        }
     }
 
     // Metodos PUT
 
-    @PutMapping
-    public void editar() {
-
+    @PutMapping("/{id}")
+    public Campeao editar(@PathVariable Campeao campeao) {
+        Campeao campeaoRetorno = new Campeao();
+        try{
+            campeaoRetorno = campeaoDao.merge(campeao);
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
+        }
+        return campeaoRetorno;
     }
 
-    @PutMapping
-    public void adicionarImagem() {
-
+    @PutMapping("/{idCampeao}/images/{idImagem}")
+    public Campeao adicionarImagem(@PathVariable Long idCampeao, Long idImagem) {
+        Campeao campeaoRetorno = new Campeao();
+        try{
+            
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
+        }
+        return campeaoRetorno;
     }
 
     // Metodos DELETE

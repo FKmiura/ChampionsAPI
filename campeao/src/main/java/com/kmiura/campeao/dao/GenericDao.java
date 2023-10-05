@@ -75,13 +75,14 @@ public class GenericDao<Entidade> {
 		}
 	}
 	
-	public void editar(Entidade entidade) {
+	public Entidade editar(Entidade entidade) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
 		try {
 			transacao = session.beginTransaction();
-			session.merge(entidade);
+			Entidade ent = session.merge(entidade);
 			transacao.commit();
+			return ent;
 		} catch (RuntimeException e) {
 			if (transacao != null) {
 				transacao.rollback();

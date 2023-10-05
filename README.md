@@ -2,8 +2,9 @@
 
 API para salvar, editar, buscar campeoes
 
-#API Mapping 
-@GET
+## API Mapping 
+
+### @GET
 /champions
 Retorna uma lista com todos os campeoes cadastrados
 /champions/{id}
@@ -18,14 +19,14 @@ Retorna uma lista das imagens cadastradas
 /images/{id}
 Retorna uma uma imagem especificada pelo id
 
-@POST
+### @POST
 /champions
 Salva um novo campeao
 
 /images
 Salva uma nova imagem
 
-@PUT
+### @PUT
 /champions/{id}
 Edita o campeao especificado pelo id
 /champions/{id}/images/{id}
@@ -34,14 +35,14 @@ Adiciona a imagem para o campeao
 /images/{id}
 Edita uma imagem especificada pelo id
 
-@DELETE
+### @DELETE
 /champions/{id}
 Deleta o campeao especificado pelo id
 
 /images/{id}
 Deleta uma imagem especificada pelo id
 
-#Outros detalhes
+## Outros detalhes
 
-O campo tipo da imagem pode ser SPLASH, MINIATURA ou LOADING
+O campo tipo da imagem pode ser **SPLASH**, **MINIATURA** ou **LOADING**
 O campeao e a imagem podem ser criados a parte e depois interligados pelo PUT, sendo especificado o Id do campeao e da imagem

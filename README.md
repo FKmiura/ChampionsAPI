@@ -2,6 +2,11 @@
 
 API para salvar, editar, buscar campeoes
 
+## Database Diagram
+<p align="center">
+  <img src="./images/DatabaseDiagram.png" width=75% height=75%>
+</p>
+
 ## API Mapping 
 
 | Mapping | Path | Função |

@@ -19,6 +19,7 @@ API para salvar, editar, buscar campeoes
 | GET | /images/{id} | Retorna uma uma imagem especificada pelo id |
 | POST | /champions | Salva um novo campeao |
 | POST | /images | Salva uma nova imagem |
+| POST | /images/{tipo} | Salva uma nova imagem com um tipo especificado|
 | PUT | /champions/{id} | Edita o campeao especificado pelo id |
 | PUT | /champions/{id}/images/{id} | Adiciona a imagem para o campeao |
 | PUT | /images/{id} | Edita uma imagem especificada pelo id |

@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Campeao {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,7 +57,8 @@ public class Campeao {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Tier> tier;
 
-    public Campeao(){ }
+    public Campeao() {
+    }
 
     public Campeao(Long id, String nome, String descricao, String funcao, String lane, String dificuldade,
             String passivaNome, String passivaDesc, String qNome, String qDesc, String wNome, String wDesc,
@@ -82,6 +83,73 @@ public class Campeao {
         this.titulo = titulo;
         this.imagem = imagem;
         this.tier = tier;
+    }
+
+    public void updateFrom(Campeao otherCampeao) {
+        if (otherCampeao.getNome() != null) {
+            this.setNome(otherCampeao.getNome());
+        }
+        if (otherCampeao.getDescricao() != null) {
+            this.setDescricao(otherCampeao.getDescricao());
+        }
+        if (otherCampeao.getFuncao() != null) {
+            this.setFuncao(otherCampeao.getFuncao());
+        }
+        if (otherCampeao.getLane() != null) {
+            this.setLane(otherCampeao.getLane());
+        }
+        if (otherCampeao.getDificuldade() != null) {
+            this.setDificuldade(otherCampeao.getDificuldade());
+        }
+        if (otherCampeao.getPassivaNome() != null) {
+            this.setPassivaNome(otherCampeao.getPassivaNome());
+        }
+        if (otherCampeao.getPassivaDesc() != null) {
+            this.setPassivaDesc(otherCampeao.getPassivaDesc());
+        }
+        if (otherCampeao.getqNome() != null) {
+            this.setqNome(otherCampeao.getqNome());
+        }
+        if (otherCampeao.getqDesc() != null) {
+            this.setqDesc(otherCampeao.getqDesc());
+        }
+        if (otherCampeao.getwNome() != null) {
+            this.setwNome(otherCampeao.getwNome());
+        }
+        if (otherCampeao.getwDesc() != null) {
+            this.setwDesc(otherCampeao.getwDesc());
+        }
+        if (otherCampeao.geteNome() != null) {
+            this.seteNome(otherCampeao.geteNome());
+        }
+        if (otherCampeao.geteDesc() != null) {
+            this.seteDesc(otherCampeao.geteDesc());
+        }
+        if (otherCampeao.getrNome() != null) {
+            this.setrNome(otherCampeao.getrNome());
+        }
+        if (otherCampeao.getrDesc() != null) {
+            this.setrDesc(otherCampeao.getrDesc());
+        }
+        if (otherCampeao.getTitulo() != null) {
+            this.setTitulo(otherCampeao.getTitulo());
+        }
+        
+        if (otherCampeao.getImagem() != null) {
+            for (Imagem newImagem : otherCampeao.getImagem()) {
+                if (!this.getImagem().contains(newImagem)) {
+                    this.getImagem().add(newImagem);
+                }
+            }
+        }
+        if (otherCampeao.getTier() != null) {
+            for (Tier newTier : otherCampeao.getTier()) {
+                if (!this.getTier().contains(newTier)) {
+                    this.getTier().add(newTier);
+                }
+            }
+        }
+
     }
 
     public Long getId() {

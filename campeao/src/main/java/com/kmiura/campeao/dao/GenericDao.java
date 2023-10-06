@@ -57,14 +57,13 @@ public class GenericDao<Entidade> {
 		}
 	}
 
-	public Entidade merge(Entidade entidade) {
+	public void merge(Entidade entidade) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transacao = null;
 		try {
 			transacao = session.beginTransaction();
-			Entidade retorno = (Entidade) session.merge(entidade);
+			session.merge(entidade);
 			transacao.commit();
-			return retorno;
 		} catch (RuntimeException e) {
 			if (transacao != null) {
 				transacao.rollback();
@@ -150,7 +149,7 @@ public class GenericDao<Entidade> {
 			
 			criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id));
 			
-			Entidade resultado = session.createQuery(criteriaQuery).getSingleResult();
+			Entidade resultado = session.createQuery(criteriaQuery).getSingleResultOrNull();
 			return resultado;
 			
 		} catch (RuntimeException e) {

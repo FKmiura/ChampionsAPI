@@ -21,13 +21,23 @@ public class Imagem {
     private String nome;
     @Column
     private ImagemEnum tipo;
-    @Column
-    private String dataAdicao;
 
     @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(columnDefinition = "blob")
     private byte[] imagem;
+
+    public void updateFrom(Imagem otherImage) {
+        if (otherImage.getNome() != null) {
+            this.setNome(otherImage.getNome());
+        }
+        if (otherImage.getTipo() != null) {
+            this.setTipo(otherImage.getTipo());
+        }
+        if (otherImage.getImagem() != null) {
+            this.setImagem(otherImage.getImagem());
+        }
+    }
     
     public Long getId() {
         return id;
@@ -53,13 +63,5 @@ public class Imagem {
     public void setTipo(ImagemEnum tipo) {
         this.tipo = tipo;
     }
-    public String getDataAdicao() {
-        return dataAdicao;
-    }
-    public void setDataAdicao(String dataAdicao) {
-        this.dataAdicao = dataAdicao;
-    }
-
-    
     
 }

@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kmiura.campeao.dao.CampeaoDao;
+import com.kmiura.campeao.dao.ImagemDao;
 import com.kmiura.campeao.domain.Campeao;
 import com.kmiura.campeao.domain.Imagem;
 import com.kmiura.campeao.enuns.ImagemEnum;
@@ -23,6 +25,7 @@ import com.kmiura.campeao.exception.ResourceNotFoundException;
 public class CampeaoController {
 
     private CampeaoDao campeaoDao = new CampeaoDao();
+    private ImagemDao imagemDao = new ImagemDao();
 
     // Metodos GET
 
@@ -77,7 +80,7 @@ public class CampeaoController {
     }
 
     @GetMapping("/{id}/images/{tipo}")
-    public List<Imagem> buscarIdImagemTipo(@PathVariable Long id, ImagemEnum tipo) {
+    public List<Imagem> buscarIdImagemTipo(@PathVariable Long id,@PathVariable ImagemEnum tipo) {
         List<Imagem> imagemsCampeao = new ArrayList<>();
         List<Imagem> imagemsTipo = new ArrayList<>();
         Campeao campeao = new Campeao();
@@ -108,7 +111,7 @@ public class CampeaoController {
     // Metodos POST
 
     @PostMapping
-    public Campeao salvar(Campeao campeao) {
+    public Campeao salvar(@RequestBody Campeao campeao) {
         try{
             campeaoDao.salvar(campeao);
             return campeao;
@@ -121,10 +124,20 @@ public class CampeaoController {
     // Metodos PUT
 
     @PutMapping("/{id}")
-    public Campeao editar(@PathVariable Campeao campeao) {
+    public Campeao editar(@PathVariable Long id, @RequestBody Campeao campeao) {
         Campeao campeaoRetorno = new Campeao();
         try{
-            campeaoRetorno = campeaoDao.merge(campeao);
+            Campeao campeaoEditar = new Campeao();
+            campeaoEditar = campeaoDao.buscarId(id);
+
+            if(campeaoEditar == null){
+                throw new ResourceNotFoundException("No Campeao found.");
+            }
+            
+            campeaoEditar.updateFrom(campeao);
+
+            campeaoRetorno = campeaoDao.editar(campeaoEditar);
+            
         }catch(RuntimeException e){
             e.printStackTrace();
             throw new InternalServerErrorException("An internal server error occurred.");
@@ -133,10 +146,21 @@ public class CampeaoController {
     }
 
     @PutMapping("/{idCampeao}/images/{idImagem}")
-    public Campeao adicionarImagem(@PathVariable Long idCampeao, Long idImagem) {
+    public Campeao adicionarImagem(@PathVariable Long idCampeao,@PathVariable Long idImagem) {
         Campeao campeaoRetorno = new Campeao();
         try{
-            
+            Imagem imagem = imagemDao.buscarId(idImagem);
+            if(imagem == null){
+                throw new ResourceNotFoundException("No Image found.");
+            }
+            Campeao campeao = campeaoDao.buscarId(idCampeao);
+            if(campeao == null){
+                throw new ResourceNotFoundException("No Campeao found.");
+            }
+            List<Imagem> imagems = campeao.getImagem();
+            imagems.add(imagem);
+            campeao.setImagem(imagems);
+            campeaoRetorno = campeaoDao.editar(campeao);
         }catch(RuntimeException e){
             e.printStackTrace();
             throw new InternalServerErrorException("An internal server error occurred.");
@@ -146,8 +170,18 @@ public class CampeaoController {
 
     // Metodos DELETE
 
-    @DeleteMapping
-    public void excluir() {
-
+    @DeleteMapping("/{id}")
+    public void excluir(@PathVariable Long id) {
+        try {
+            Campeao campeao = campeaoDao.buscarId(id);
+            if(campeao != null){
+                campeaoDao.excluir(campeao);
+            }else{
+                throw new ResourceNotFoundException("No Campeao found.");
+            }
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            throw new InternalServerErrorException("An internal server error occurred.");
+        }
     }
 }

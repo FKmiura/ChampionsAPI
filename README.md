@@ -20,9 +20,11 @@ API para salvar, editar, buscar campeoes
 | POST | /champions | Salva um novo campeao |
 | POST | /images | Salva uma nova imagem |
 | POST | /images/{tipo} | Salva uma nova imagem com um tipo especificado|
-| PUT | /champions/{id} | Edita o campeao especificado pelo id |
+| PUT | /champions/editar/tudo/{id} | Edita tudo do campeao especificado pelo id |
+| PUT | /champions/editar/parcial/{id} | Edita parcialmente o campeao especificado pelo id |
 | PUT | /champions/{id}/images/{id} | Adiciona a imagem para o campeao |
-| PUT | /images/{id} | Edita uma imagem especificada pelo id |
+| PUT | /images/editar/tudo/{id} | Edita tudo da imagem especificada pelo id |
+| PUT | /images/editar/parcial/{id} | Edita parcialmente a imagem especificada pelo id |
 | DELETE | /champions/{id} | Deleta o campeao especificado pelo id |
 | DELETE | /images/{id} | Deleta uma imagem especificada pelo id |
 

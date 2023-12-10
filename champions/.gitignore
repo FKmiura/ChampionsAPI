@@ -1,0 +1,41 @@
+# Maven
+target/
+*.iml
+.idea/
+mvn_wrapper/
+
+# Spring Boot
+*.log
+*.log.*
+*.tmp
+logs/
+log/
+out/
+build/
+
+# Application properties
+src/main/resources/application.properties
+src/main/resources/application.yml
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log*
+*.swp
+
+# IDE-specific files
+/.vscode/
+*.classpath
+*.project
+.settings/
+
+# Docker
+Dockerfile
+docker-compose.yml
+target/
+
+# Miscellaneous
+HELP.md

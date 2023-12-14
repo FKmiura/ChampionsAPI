@@ -1,6 +1,15 @@
 # ChampionsAPI
 
-API para salvar, editar, buscar campeoes
+Essa API foi projetada para gerenciar informações sobre campeões. A API fornece funcionalidades para criar, atualizar, excluir e listar campeões.
+
+### Como usar
+
+Para fazer a API funcionar, deve-se baixar o arquivo [zip](https://drive.google.com/file/d/17V4zH3rK34F9L77zKzh5O0S4eb1owXOf/view?usp=drive_link) e descompacta-lo, abrindo o cmd no mesmo diretorio que esta os arquivos basta digitar
+
+```
+docker-compose up
+```
+A aplicação ira iniciar na porta 8080 junto com um servidor mysql que estara na porta 3306
 
 ## Database Diagram
 <p align="center">
@@ -30,5 +39,14 @@ API para salvar, editar, buscar campeoes
 
 ## Outros detalhes
 
-- O campo tipo da imagem pode ser **SPLASH**, **MINIATURA** ou **LOADING**;
-- O campeao e a imagem podem ser criados a parte e depois interligados pelo PUT, sendo especificado o Id do campeao e da imagem;
+O campo tipo da imagem pode ser **SPLASH**, **MINIATURA** ou **LOADING**;
+```Json
+{
+    "tipo":"SPLASH"
+}
+```
+
+O campeao e a imagem podem ser criados a parte e depois interligados pelo PUT, sendo especificado o Id do campeao e da imagem;
+```
+/champions/1/images/2        # Interligando campeao id 1 com imagem id 2
+```

@@ -4,7 +4,7 @@ Essa API foi projetada para gerenciar informações sobre campeões. A API forne
 
 ### Como usar
 
-Para fazer a API funcionar, deve-se baixar o arquivo [zip](https://drive.google.com/file/d/17V4zH3rK34F9L77zKzh5O0S4eb1owXOf/view?usp=drive_link) e descompacta-lo, abrindo o cmd no mesmo diretorio que esta os arquivos basta digitar
+Para fazer a API funcionar, deve-se baixar o arquivo [zip](https://drive.google.com/file/d/1zMN_JyimABBy7TQL9ZYet19dphbW1uds/view?usp=sharing) e descompacta-lo, abrindo o cmd no mesmo diretorio que esta os arquivos basta digitar
 
 ```
 docker-compose up
